@@ -4,985 +4,692 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vinceafrica Logistics — Transporting You Forward</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --orange: #E85D04;
-    --orange-bright: #FF6B1A;
-    --dark: #0A0A0A;
-    --darker: #050505;
-    --mid: #1A1A1A;
-    --steel: #2A2A2A;
-    --text: #E8E8E8;
-    --muted: #888;
-    --white: #FFFFFF;
+    --blue:        #0A3D8F;
+    --blue-mid:    #1255C1;
+    --blue-light:  #1E6FE8;
+    --blue-pale:   #EBF2FF;
+    --orange:      #F26522;
+    --orange-dark: #D4521A;
+    --white:       #FFFFFF;
+    --off-white:   #F7F9FC;
+    --grey-light:  #E8EDF5;
+    --grey:        #9AAAC0;
+    --dark:        #0D1B33;
+    --text:        #1A2B4A;
+    --text-light:  #4A607A;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Barlow', sans-serif;
-    background: var(--dark);
+    background: var(--white);
     color: var(--text);
     overflow-x: hidden;
     cursor: none;
   }
 
-  /* Custom cursor */
   .cursor {
-    width: 12px; height: 12px;
+    width: 10px; height: 10px;
     background: var(--orange);
     border-radius: 50%;
     position: fixed; top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease;
-    mix-blend-mode: difference;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform .1s;
   }
   .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid var(--orange);
+    width: 34px; height: 34px;
+    border: 1.5px solid var(--blue-light);
     border-radius: 50%;
     position: fixed; top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: all 0.15s ease;
-    opacity: 0.6;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all .12s ease;
+    opacity: .5;
   }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(10,10,10,0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(232,93,4,0.15);
+    padding: 0 3rem;
+    height: 68px;
+    background: var(--white);
+    border-bottom: 2px solid var(--grey-light);
+    box-shadow: 0 2px 20px rgba(10,61,143,.07);
   }
 
   .logo {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.75rem;
     letter-spacing: 3px;
-    color: var(--white);
+    color: var(--blue);
     text-decoration: none;
+    cursor: none;
   }
   .logo span { color: var(--orange); }
 
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-    cursor: none;
+    font-weight: 700; font-size: .8rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-light); text-decoration: none; cursor: none;
+    transition: color .2s; position: relative; padding-bottom: 3px;
   }
-  .nav-links a:hover { color: var(--orange); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--orange);
+    transform: scaleX(0); transition: transform .25s; transform-origin: left;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-links a:hover::after { transform: scaleX(1); }
 
   .nav-cta {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: var(--orange);
-    color: var(--white);
-    border: none;
-    padding: 0.7rem 1.8rem;
-    cursor: none;
-    transition: background 0.2s, transform 0.15s;
+    font-weight: 700; font-size: .8rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--orange); color: var(--white);
+    border: none; padding: .65rem 1.8rem; cursor: none;
+    transition: background .2s, transform .15s;
   }
-  .nav-cta:hover { background: var(--orange-bright); transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--orange-dark); transform: translateY(-1px); }
 
-  /* PAGE SYSTEM */
   .page { display: none; }
   .page.active { display: block; }
 
-  /* ===================== HOME PAGE ===================== */
-  #home {
-    min-height: 100vh;
-    background: var(--darker);
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex; align-items: center;
-    overflow: hidden;
-    padding: 0 3rem;
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: 
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 59px,
-        rgba(232,93,4,0.04) 59px,
-        rgba(232,93,4,0.04) 60px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 59px,
-        rgba(232,93,4,0.04) 59px,
-        rgba(232,93,4,0.04) 60px
-      );
-  }
-
-  .hero-glow {
-    position: absolute;
-    right: -10%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(232,93,4,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-content {
-    position: relative; z-index: 2;
-    max-width: 900px;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.6s ease both;
-  }
-
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 10vw, 9rem);
-    line-height: 0.9;
-    letter-spacing: 2px;
-    color: var(--white);
-    animation: fadeUp 0.6s 0.15s ease both;
-  }
-  .hero h1 .accent { color: var(--orange); }
-
-  .hero-sub {
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 500px;
-    margin-top: 2rem;
-    line-height: 1.7;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-
-  .hero-actions {
-    display: flex; gap: 1rem; margin-top: 3rem;
-    animation: fadeUp 0.6s 0.45s ease both;
-  }
-
-  .btn-primary {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: var(--orange);
-    color: var(--white);
-    border: none;
-    padding: 1rem 2.5rem;
-    cursor: none;
-    transition: all 0.2s;
-    text-decoration: none;
-    display: inline-flex; align-items: center; gap: 0.7rem;
-  }
-  .btn-primary:hover { background: var(--orange-bright); transform: translateX(3px); }
-
-  .btn-outline {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--text);
-    border: 1px solid rgba(232,93,4,0.4);
-    padding: 1rem 2.5rem;
-    cursor: none;
-    transition: all 0.2s;
-    text-decoration: none;
-  }
-  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
-
-  /* Stats bar */
-  .stats-bar {
-    background: var(--mid);
-    border-top: 1px solid rgba(232,93,4,0.2);
-    border-bottom: 1px solid rgba(232,93,4,0.2);
-    padding: 2.5rem 3rem;
-    display: flex; gap: 0;
-  }
-
-  .stat {
-    flex: 1;
-    padding: 0 2rem;
-    border-right: 1px solid rgba(255,255,255,0.08);
-  }
-  .stat:first-child { padding-left: 0; }
-  .stat:last-child { border-right: none; }
-
-  .stat-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    color: var(--orange);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
-
-  /* Services section */
-  .section {
-    padding: 6rem 3rem;
-  }
-
   .section-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 1rem;
+    font-weight: 700; font-size: .72rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: .8rem;
+    display: flex; align-items: center; gap: .8rem;
   }
-  .section-label::after {
-    content: '';
-    display: block;
-    width: 40px; height: 1px;
-    background: var(--orange);
+  .section-label::before {
+    content: ''; width: 28px; height: 2px;
+    background: var(--orange); flex-shrink: 0;
   }
 
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1;
-    letter-spacing: 1px;
-    margin-bottom: 3rem;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    line-height: 1; letter-spacing: 1px;
+    color: var(--blue); margin-bottom: 2.5rem;
   }
 
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(232,93,4,0.1);
-    border: 1px solid rgba(232,93,4,0.1);
-  }
-
-  .service-card {
-    background: var(--dark);
-    padding: 2.5rem 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-  }
-  .service-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--orange);
-    transform: scaleY(0);
-    transition: transform 0.3s;
-    transform-origin: bottom;
-  }
-  .service-card:hover { background: rgba(232,93,4,0.05); }
-  .service-card:hover::before { transform: scaleY(1); }
-
-  .service-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .service-card h3 {
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .6rem;
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
+    font-weight: 700; font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--orange); color: var(--white);
+    border: none; padding: .95rem 2.2rem; cursor: none; text-decoration: none;
+    transition: background .2s, transform .15s;
   }
+  .btn-primary:hover { background: var(--orange-dark); transform: translateX(3px); }
 
-  .service-card p {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.6;
+  .btn-outline-white {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+    background: transparent; color: rgba(255,255,255,.9);
+    border: 2px solid rgba(255,255,255,.5); padding: .95rem 2.2rem; cursor: none; text-decoration: none;
+    transition: all .2s;
   }
+  .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,.1); }
 
-  /* Marquee */
-  .marquee-wrap {
-    overflow: hidden;
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── HOME ─── */
+  #home { background: var(--white); padding-top: 68px; }
+
+  .hero {
+    background: var(--blue);
+    min-height: 92vh;
+    display: flex; align-items: center;
+    padding: 5rem 3rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .hero-shapes::before {
+    content: ''; position: absolute;
+    right: -6%; top: -10%; width: 55%; height: 130%;
+    background: var(--blue-mid);
+    clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  .hero-shapes::after {
+    content: ''; position: absolute;
+    right: 0; bottom: -5%; width: 28%; height: 55%;
     background: var(--orange);
-    padding: 1rem 0;
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+    opacity: .15;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: .72rem; letter-spacing: 3px; text-transform: uppercase;
+    background: rgba(242,101,34,.18); border: 1px solid rgba(242,101,34,.4);
+    color: #FFB088; padding: .4rem 1rem; margin-bottom: 2rem;
+    animation: fadeUp .5s ease both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px; background: var(--orange);
+    border-radius: 50%; animation: blink 2s infinite;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.8rem, 9vw, 8rem);
+    line-height: .92; letter-spacing: 2px; color: var(--white);
+    animation: fadeUp .55s .1s ease both;
+  }
+  .hero h1 .accent { color: var(--orange); }
+
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300;
+    color: rgba(255,255,255,.7); max-width: 480px;
+    margin-top: 1.8rem; line-height: 1.75;
+    animation: fadeUp .55s .2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    animation: fadeUp .55s .3s ease both; flex-wrap: wrap;
+  }
+
+  .hero-trust {
+    margin-top: 3.5rem;
+    display: flex; gap: 2rem; flex-wrap: wrap;
+    animation: fadeUp .55s .4s ease both;
+  }
+  .trust-item { display: flex; align-items: center; gap: .6rem; }
+  .trust-icon {
+    width: 32px; height: 32px; background: rgba(255,255,255,.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem;
+  }
+  .trust-text {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .72rem; letter-spacing: 1px; text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+  }
+
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--white);
+    border-bottom: 2px solid var(--grey-light);
+    box-shadow: 0 4px 24px rgba(10,61,143,.07);
+  }
+  .stat {
+    padding: 2.5rem 2rem; text-align: center;
+    border-right: 1px solid var(--grey-light);
+    position: relative; overflow: hidden; transition: background .25s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--orange);
+    transform: scaleX(0); transition: transform .3s;
+  }
+  .stat:hover::after { transform: scaleX(1); }
+  .stat:hover { background: var(--blue-pale); }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem; color: var(--blue); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); margin-top: .3rem;
+  }
+
+  .marquee-wrap {
+    overflow: hidden; background: var(--blue-pale);
+    border-top: 1px solid rgba(10,61,143,.1);
+    border-bottom: 1px solid rgba(10,61,143,.1);
+    padding: .9rem 0;
   }
   .marquee-track {
-    display: flex;
-    gap: 0;
-    animation: marquee 20s linear infinite;
-    white-space: nowrap;
+    display: flex; animation: marquee 24s linear infinite; white-space: nowrap;
   }
   .marquee-item {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    color: var(--darker);
-    padding: 0 2rem;
-    flex-shrink: 0;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .78rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--blue-mid); padding: 0 1.8rem; flex-shrink: 0;
   }
-  .marquee-dot {
-    color: rgba(10,10,10,0.4);
-    padding: 0 0.5rem;
-  }
+  .marquee-sep { color: var(--orange); margin: auto 0; font-size: .5rem; }
 
-  /* Two col layout */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
+  .home-services { padding: 6rem 3rem; background: var(--white); }
 
-  .vision-text p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-  }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
-  .vision-badge {
-    display: inline-block;
+  .service-card {
+    background: var(--off-white); border: 1.5px solid var(--grey-light);
+    padding: 2.5rem 2rem; position: relative; overflow: hidden;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .service-card:hover {
+    border-color: var(--blue-light); transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(10,61,143,.1);
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    transform: scaleX(0); transition: transform .3s; transform-origin: left;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .svc-icon-box {
+    width: 52px; height: 52px; background: var(--blue-pale);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .service-card h3 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: rgba(232,93,4,0.15);
-    border: 1px solid rgba(232,93,4,0.3);
-    color: var(--orange);
-    padding: 0.5rem 1rem;
-    margin-top: 0.5rem;
+    font-weight: 900; font-size: 1.15rem; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: .7rem;
+  }
+  .service-card p { font-size: .88rem; color: var(--text-light); line-height: 1.65; }
+
+  .about-split {
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .about-left {
+    padding: 6rem 4rem; background: var(--blue); position: relative; overflow: hidden;
+  }
+  .about-left::before {
+    content: ''; position: absolute; bottom: -60px; right: -60px;
+    width: 260px; height: 260px; border-radius: 50%;
+    border: 40px solid rgba(255,255,255,.05);
+  }
+  .about-left .section-label { color: #FFB088; }
+  .about-left .section-label::before { background: var(--orange); }
+  .about-left .section-title { color: var(--white); }
+  .about-left p {
+    font-size: .95rem; font-weight: 300;
+    color: rgba(255,255,255,.72); line-height: 1.8; margin-bottom: 1.2rem;
+  }
+  .about-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .7rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--orange); color: var(--white); padding: .5rem 1.1rem; margin-top: 1.5rem;
   }
 
-  .vision-visual {
-    position: relative;
-    padding: 2rem;
+  .about-right {
+    background: var(--off-white); padding: 6rem 4rem;
+    display: flex; flex-direction: column; justify-content: center; gap: 2rem;
   }
+  .value-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .value-icon {
+    width: 44px; height: 44px; background: var(--blue-pale);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .value-item h4 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 1rem; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: .3rem;
+  }
+  .value-item p { font-size: .85rem; color: var(--text-light); line-height: 1.6; }
 
-  .vision-box {
-    background: var(--mid);
-    border: 1px solid rgba(232,93,4,0.2);
-    padding: 3rem 2.5rem;
-    position: relative;
-  }
-  .vision-box::after {
-    content: '';
-    position: absolute;
-    bottom: -12px; right: -12px;
-    width: 100%; height: 100%;
-    border: 1px solid rgba(232,93,4,0.15);
-    z-index: -1;
-  }
+  .contact-section { padding: 6rem 3rem; background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; margin-top: 3rem; }
 
-  .vision-quote {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 1.5rem;
+  .contact-card {
+    background: var(--blue); padding: 3rem 2.5rem;
+    position: relative; overflow: hidden; height: fit-content;
   }
-  .vision-quote span { color: var(--orange); }
+  .contact-card::after {
+    content: ''; position: absolute; bottom: -40px; right: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    border: 32px solid rgba(255,255,255,.06);
+  }
+  .contact-card h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+    color: var(--white); letter-spacing: 1px; margin-bottom: 2rem;
+  }
+  .c-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.8rem; }
+  .c-icon {
+    width: 38px; height: 38px; background: rgba(255,255,255,.1);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; flex-shrink: 0;
+  }
+  .c-label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .65rem; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.5); margin-bottom: .2rem;
+  }
+  .c-value { font-size: .9rem; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.5; }
 
-  .vision-since {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
+  .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+  .form-row { display: flex; gap: 1rem; }
+  .form-row .fg { flex: 1; }
+  .fg { display: flex; flex-direction: column; gap: .4rem; }
+  .fg label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light);
   }
+  .fg input, .fg select, .fg textarea {
+    background: var(--off-white); border: 1.5px solid var(--grey-light);
+    color: var(--text); padding: .85rem 1rem;
+    font-family: 'Barlow', sans-serif; font-size: .9rem;
+    outline: none; transition: border-color .2s, box-shadow .2s;
+    resize: none; border-radius: 2px;
+  }
+  .fg input:focus, .fg textarea:focus {
+    border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(30,111,232,.1);
+  }
+  .fg select { cursor: none; }
+  .fg textarea { height: 130px; }
 
-  /* ===================== SERVICES PAGE ===================== */
-  #services-page {
-    min-height: 100vh;
-    background: var(--darker);
-    padding-top: 5rem;
+  footer {
+    background: var(--dark); padding: 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 2rem; border-top: 3px solid var(--orange);
   }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--white); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.4); text-decoration: none; cursor: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: .78rem; color: rgba(255,255,255,.2); }
+
+  /* ─── SERVICES PAGE ─── */
+  #services-page { background: var(--white); padding-top: 68px; }
 
   .page-hero {
-    padding: 5rem 3rem 4rem;
-    background: var(--mid);
-    border-bottom: 1px solid rgba(232,93,4,0.15);
-    position: relative;
-    overflow: hidden;
+    background: var(--blue); padding: 5rem 3rem 4.5rem;
+    position: relative; overflow: hidden;
   }
-
-  .page-hero-bg {
-    position: absolute; inset: 0;
-    background: 
-      radial-gradient(ellipse at 80% 50%, rgba(232,93,4,0.1) 0%, transparent 60%);
+  .page-hero::before {
+    content: ''; position: absolute;
+    right: 0; top: 0; width: 42%; height: 100%;
+    background: var(--blue-mid);
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
-
-  .page-hero-content { position: relative; z-index: 1; }
-
+  .page-hero::after {
+    content: ''; position: absolute;
+    right: 0; bottom: 0; width: 20%; height: 50%;
+    background: var(--orange);
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+    opacity: .2;
+  }
+  .page-hero-inner { position: relative; z-index: 1; }
   .page-hero-tag {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 1rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .72rem; letter-spacing: 4px; text-transform: uppercase;
+    color: #FFB088; margin-bottom: .8rem;
   }
-
   .page-hero h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 6vw, 6rem);
-    line-height: 0.95;
-    letter-spacing: 2px;
-    color: var(--white);
+    font-size: clamp(3rem, 7vw, 6.5rem); line-height: .92; letter-spacing: 2px; color: var(--white);
   }
-
+  .page-hero h2 em { color: var(--orange); font-style: normal; }
   .page-hero p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 500px;
-    margin-top: 1.5rem;
-    line-height: 1.7;
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,.7);
+    max-width: 500px; margin-top: 1.5rem; line-height: 1.75;
   }
 
-  .services-full-grid {
-    padding: 5rem 3rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  .services-full {
+    padding: 5rem 3rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
   }
-
-  .service-full-card {
-    background: var(--mid);
-    border: 1px solid rgba(232,93,4,0.1);
-    padding: 3rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
+  .sfc {
+    background: var(--white); border: 1.5px solid var(--grey-light);
+    padding: 2.5rem; position: relative; overflow: hidden;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
   }
-  .service-full-card:hover {
-    border-color: rgba(232,93,4,0.4);
-    transform: translateY(-3px);
+  .sfc:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(10,61,143,.09);
+    border-color: var(--blue-light);
   }
-
-  .service-full-card .num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    color: rgba(232,93,4,0.08);
-    position: absolute;
-    top: 1rem; right: 2rem;
-    line-height: 1;
-    pointer-events: none;
+  .sfc::after {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 4px;
+    background: linear-gradient(to bottom, var(--blue), var(--orange));
   }
-
-  .service-full-card h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin: 1rem 0 1rem;
-    color: var(--white);
+  .sfc-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+    color: var(--blue-pale); position: absolute;
+    top: 1rem; right: 1.8rem; line-height: 1; pointer-events: none;
   }
-
-  .service-full-card p {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
+  .sfc-icon {
+    width: 50px; height: 50px; background: var(--blue-pale);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1rem;
   }
-
-  .service-tag {
+  .sfc h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 1.25rem; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: .8rem;
+  }
+  .sfc p { font-size: .88rem; color: var(--text-light); line-height: 1.7; margin-bottom: 1.2rem; }
+  .stag {
     display: inline-block;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: rgba(232,93,4,0.12);
-    color: var(--orange);
-    padding: 0.3rem 0.8rem;
-    margin: 0.2rem 0.2rem 0.2rem 0;
-    border: 1px solid rgba(232,93,4,0.2);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--blue-pale); color: var(--blue-mid);
+    padding: .25rem .75rem; margin: .15rem .15rem 0 0;
+    border: 1px solid rgba(10,61,143,.12);
   }
 
-  /* Process section */
-  .process {
-    background: var(--mid);
-    padding: 5rem 3rem;
-    border-top: 1px solid rgba(232,93,4,0.1);
-  }
-
+  .process { background: var(--off-white); padding: 6rem 3rem; border-top: 1.5px solid var(--grey-light); }
   .process-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin-top: 3rem;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 3rem; position: relative;
   }
-
-  .process-step {
-    position: relative;
-    padding-top: 1.5rem;
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 28px; left: 12.5%; right: 12.5%;
+    height: 2px; background: linear-gradient(90deg, var(--blue), var(--orange));
   }
-
-  .process-step::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: rgba(232,93,4,0.2);
+  .process-step { text-align: center; padding: 0 1.5rem; position: relative; z-index: 1; }
+  .step-circle {
+    width: 56px; height: 56px; background: var(--white);
+    border: 2.5px solid var(--blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--blue);
+    transition: background .25s, color .25s, border-color .25s;
   }
-
-  .step-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    color: var(--orange);
-    line-height: 1;
-    margin-bottom: 0.8rem;
-  }
-
+  .process-step:hover .step-circle { background: var(--orange); border-color: var(--orange); color: var(--white); }
   .process-step h4 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: .95rem; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: .5rem;
   }
+  .process-step p { font-size: .82rem; color: var(--text-light); line-height: 1.6; }
 
-  .process-step p {
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ===================== GALLERY PAGE ===================== */
-  #gallery-page {
-    min-height: 100vh;
-    background: var(--darker);
-    padding-top: 5rem;
-  }
-
-  .gallery-hero {
-    padding: 5rem 3rem 4rem;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    border-bottom: 1px solid rgba(232,93,4,0.15);
-  }
-
-  .gallery-hero h2 {
+  .cta-strip { background: var(--orange); padding: 4.5rem 3rem; text-align: center; }
+  .cta-strip h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 7rem);
-    line-height: 0.9;
-    letter-spacing: 2px;
+    font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 2px; color: var(--white); margin-bottom: 1.5rem;
   }
-  .gallery-hero h2 span { color: var(--orange); display: block; }
-
-  .gallery-filter {
-    display: flex; gap: 0.5rem; flex-wrap: wrap;
-    padding-bottom: 0.5rem;
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--white); color: var(--orange);
+    border: none; padding: .95rem 2.2rem; cursor: none; text-decoration: none;
+    transition: background .2s, transform .15s;
   }
+  .btn-white:hover { background: var(--off-white); transform: translateX(3px); }
+  .btn-white-outline {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+    background: transparent; color: var(--white);
+    border: 2px solid rgba(255,255,255,.6); padding: .95rem 2.2rem;
+    cursor: none; text-decoration: none; transition: all .2s;
+  }
+  .btn-white-outline:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
 
+  /* ─── GALLERY PAGE ─── */
+  #gallery-page { background: var(--white); padding-top: 68px; }
+
+  .gallery-header {
+    background: var(--white); padding: 4rem 3rem 0;
+    border-bottom: 2px solid var(--grey-light);
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 2rem;
+  }
+  .gallery-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: .92; letter-spacing: 2px; color: var(--blue);
+  }
+  .gallery-header h2 em { color: var(--orange); font-style: normal; }
+
+  .filter-bar { display: flex; gap: .5rem; flex-wrap: wrap; padding-bottom: 1.5rem; }
   .filter-btn {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 0.5rem 1.2rem;
-    cursor: none;
-    transition: all 0.2s;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    background: transparent; color: var(--text-light);
+    border: 1.5px solid var(--grey-light); padding: .5rem 1.3rem;
+    cursor: none; transition: all .2s;
   }
-  .filter-btn:hover, .filter-btn.active {
-    background: var(--orange);
-    color: var(--white);
-    border-color: var(--orange);
-  }
+  .filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .filter-btn.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
 
-  /* Gallery grid */
   .gallery-grid {
-    padding: 3rem;
-    display: grid;
+    padding: 2.5rem 3rem; display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 280px;
-    gap: 0.8rem;
+    grid-auto-rows: 270px; gap: 1rem;
   }
-
   .gallery-item {
-    position: relative;
-    overflow: hidden;
-    background: var(--mid);
-    cursor: none;
+    position: relative; overflow: hidden;
+    border: 1.5px solid var(--grey-light); cursor: none;
+    transition: border-color .25s;
   }
-
+  .gallery-item:hover { border-color: var(--orange); }
   .gallery-item.wide { grid-column: span 2; }
   .gallery-item.tall { grid-row: span 2; }
 
-  .gallery-placeholder {
+  .g-ph {
     width: 100%; height: 100%;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 1rem;
-    background: var(--steel);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.4s ease;
+    align-items: center; justify-content: center; gap: .8rem;
+    transition: transform .45s ease; position: relative;
+  }
+  .gallery-item:hover .g-ph { transform: scale(1.04); }
+
+  /* Light blue/orange placeholder backgrounds */
+  .c-fleet1  { background: linear-gradient(135deg, #dce8ff 0%, #b4ccf0 100%); }
+  .c-fleet2  { background: linear-gradient(160deg, #cee0ff 0%, #a8c6f0 100%); }
+  .c-move1   { background: linear-gradient(135deg, #fff2ea 0%, #ffd6b0 100%); }
+  .c-move2   { background: linear-gradient(160deg, #ffeedd 0%, #ffc496 100%); }
+  .c-cargo1  { background: linear-gradient(120deg, #e0ecff 0%, #bcd4f8 100%); }
+  .c-cargo2  { background: linear-gradient(135deg, #ffe6d4 0%, #ffbf90 100%); }
+  .c-team1   { background: linear-gradient(160deg, #d6e8ff 0%, #accaf0 100%); }
+  .c-team2   { background: linear-gradient(120deg, #fff0e2 0%, #ffcca0 100%); }
+  .c-route   { background: linear-gradient(135deg, #e2eeff 0%, #bed2f8 100%); }
+
+  .g-icon { font-size: 3.5rem; opacity: .45; }
+  .g-lbl {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: .65rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--blue); opacity: .45;
   }
 
-  .gallery-item:hover .gallery-placeholder { transform: scale(1.04); }
-
-  /* Simulated photo backgrounds */
-  .gallery-placeholder.truck-1 {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d1a00 50%, #1a0d00 100%);
-  }
-  .gallery-placeholder.truck-2 {
-    background: linear-gradient(160deg, #0d1a2d 0%, #1a2d1a 100%);
-  }
-  .gallery-placeholder.truck-3 {
-    background: linear-gradient(120deg, #1a1400 0%, #2d2a00 100%);
-  }
-  .gallery-placeholder.city {
-    background: linear-gradient(180deg, #0d0d1a 0%, #1a1a2d 100%);
-  }
-  .gallery-placeholder.team {
-    background: linear-gradient(135deg, #1a0a0a 0%, #2d1a1a 100%);
-  }
-  .gallery-placeholder.cargo {
-    background: linear-gradient(160deg, #0a1a0a 0%, #1a2d0d 100%);
-  }
-  .gallery-placeholder.warehouse {
-    background: linear-gradient(120deg, #1a1a0d 0%, #2d2d1a 100%);
-  }
-  .gallery-placeholder.route {
-    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 60%, #2d1a00 100%);
-  }
-  .gallery-placeholder.fleet {
-    background: linear-gradient(160deg, #000d1a 0%, #001a2d 100%);
-  }
-
-  /* SVG scene icons */
-  .scene-icon {
-    font-size: 4rem;
-    opacity: 0.3;
-  }
-  .scene-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.2);
-  }
-
-  .gallery-overlay {
+  .g-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    display: flex; align-items: flex-end;
-    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(10,61,143,.85) 0%, transparent 60%);
+    opacity: 0; transition: opacity .3s;
+    display: flex; align-items: flex-end; padding: 1.5rem;
   }
-  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-item:hover .g-overlay { opacity: 1; }
+  .o-title {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 1rem; letter-spacing: .5px; text-transform: uppercase; color: var(--white);
+  }
+  .o-sub { font-size: .78rem; font-weight: 300; color: rgba(255,255,255,.65); margin-top: .15rem; }
 
-  .overlay-text {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--white);
+  .gallery-item::before {
+    content: '→'; position: absolute; top: 1rem; right: 1rem;
+    width: 30px; height: 30px; background: var(--orange); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem; opacity: 0; transition: opacity .3s; z-index: 10;
   }
-  .overlay-sub {
-    font-size: 0.75rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.6);
-    margin-top: 0.2rem;
-  }
+  .gallery-item:hover::before { opacity: 1; }
 
-  /* Orange accent lines on gallery items */
-  .gallery-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--orange);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-    transform-origin: left;
-  }
-  .gallery-item:hover::after { transform: scaleX(1); }
-
-  /* Reviews section */
-  .reviews {
-    background: var(--mid);
-    padding: 5rem 3rem;
-    border-top: 1px solid rgba(232,93,4,0.1);
-  }
-
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
+  .reviews { background: var(--off-white); padding: 6rem 3rem; border-top: 2px solid var(--grey-light); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
   .review-card {
-    background: var(--dark);
-    border: 1px solid rgba(232,93,4,0.1);
-    padding: 2rem;
-    position: relative;
+    background: var(--white); border: 1.5px solid var(--grey-light);
+    padding: 2rem; position: relative;
+    transition: box-shadow .25s, border-color .25s;
   }
+  .review-card:hover { box-shadow: 0 12px 40px rgba(10,61,143,.08); border-color: var(--blue-light); }
   .review-card::before {
-    content: '"';
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 6rem;
-    color: rgba(232,93,4,0.1);
-    position: absolute;
-    top: -1rem; left: 1.5rem;
-    line-height: 1;
+    content: '"'; font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem; color: var(--orange); opacity: .12;
+    position: absolute; top: -1.2rem; left: 1.2rem;
+    line-height: 1; pointer-events: none;
   }
+  .stars { color: var(--orange); font-size: .9rem; margin-bottom: .9rem; }
+  .review-text { font-size: .88rem; color: var(--text-light); line-height: 1.7; font-style: italic; margin-bottom: 1.3rem; }
+  .reviewer { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); }
 
-  .stars {
-    color: var(--orange);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .review-text {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-  }
-
-  .reviewer-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-
-  /* ===================== CONTACT SECTION ===================== */
-  .contact-section {
-    padding: 5rem 3rem;
-    background: var(--darker);
-    border-top: 1px solid rgba(232,93,4,0.1);
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 5rem;
-    margin-top: 3rem;
-  }
-
-  .contact-info h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .contact-item {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.8rem;
-    align-items: flex-start;
-  }
-
-  .contact-item-icon {
-    font-size: 1.2rem;
-    color: var(--orange);
-    margin-top: 0.1rem;
-    flex-shrink: 0;
-  }
-
-  .contact-item-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 0.3rem;
-  }
-
-  .contact-item-value {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .contact-form {
-    display: flex; flex-direction: column; gap: 1rem;
-  }
-
-  .form-row { display: flex; gap: 1rem; }
-  .form-row .form-group { flex: 1; }
-
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-
-  .form-group label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background: var(--mid);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-bottom-color: rgba(232,93,4,0.3);
-    color: var(--text);
-    padding: 0.9rem 1rem;
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 300;
-    outline: none;
-    transition: border-color 0.2s;
-    resize: none;
-  }
-  .form-group input:focus,
-  .form-group select,
-  .form-group textarea:focus {
-    border-color: var(--orange);
-  }
-  .form-group select { cursor: none; appearance: none; }
-
-  .form-group textarea { height: 120px; }
-
-  /* FOOTER */
-  footer {
-    background: var(--darker);
-    border-top: 1px solid rgba(232,93,4,0.15);
-    padding: 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 3px;
-    color: var(--white);
-  }
-  .footer-logo span { color: var(--orange); }
-
-  .footer-links {
-    display: flex; gap: 2rem; list-style: none; flex-wrap: wrap;
-  }
-  .footer-links a {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    cursor: none;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--orange); }
-
-  .footer-copy {
-    font-size: 0.8rem;
-    font-weight: 300;
-    color: rgba(136,136,136,0.5);
-  }
-
-  /* ANIMATIONS */
+  /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes marquee {
     from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .3; }
   }
 
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
     .nav-links { display: none; }
-    .hero { padding: 0 1.5rem; }
-    .stats-bar { flex-direction: column; gap: 2rem; padding: 2rem 1.5rem; }
-    .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 0 1.5rem; }
-    .stat:last-child { border-bottom: none; }
-    .section { padding: 4rem 1.5rem; }
+    .hero { padding: 4rem 1.5rem; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .home-services { padding: 4rem 1.5rem; }
     .services-grid { grid-template-columns: 1fr; }
-    .two-col { grid-template-columns: 1fr; }
-    .services-full-grid { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
-    .process-steps { grid-template-columns: 1fr 1fr; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; padding: 1.5rem; }
+    .about-split { grid-template-columns: 1fr; }
+    .about-left, .about-right { padding: 4rem 2rem; }
+    .contact-section { padding: 4rem 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-full { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+    .process { padding: 4rem 1.5rem; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .process-steps::before { display: none; }
+    .gallery-header { padding: 3rem 1.5rem 0; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; }
     .gallery-item.wide { grid-column: span 1; }
+    .reviews { padding: 4rem 1.5rem; }
     .reviews-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .gallery-hero { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 3rem 1.5rem 2rem; }
-    .contact-section { padding: 3rem 1.5rem; }
+    .cta-strip { padding: 3rem 1.5rem; }
     footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
-    .process { padding: 3rem 1.5rem; }
+    .page-hero { padding: 4rem 1.5rem 3.5rem; }
   }
 </style>
 </head>
@@ -991,9 +698,8 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
 <nav>
-  <a class="logo" onclick="showPage('home')" href="#" style="cursor:none"><span>V</span>INCEAFRICA</a>
+  <a class="logo" href="#" onclick="showPage('home')">VINCE<span>AFRICA</span></a>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home')">Home</a></li>
     <li><a href="#" onclick="showPage('services-page')">Services</a></li>
@@ -1003,200 +709,151 @@
   <button class="nav-cta" onclick="scrollToContact()">Get A Quote</button>
 </nav>
 
-<!-- ===================== HOME PAGE ===================== -->
+<!-- ═══════════════ HOME ═══════════════ -->
 <div id="home" class="page active">
 
   <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-glow"></div>
+    <div class="hero-shapes"></div>
+    <div class="hero-grid"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">🇿🇦 South Africa's Trusted Transport Partner</p>
+      <div class="hero-badge"><div class="badge-dot"></div>🇿🇦 Operating Nationwide Since 2014</div>
       <h1>TRANSPORTING<br>YOU <span class="accent">FORWARD</span></h1>
-      <p class="hero-sub">Based in Port Elizabeth, operating nationwide. Furniture removals, cargo transport, and logistics solutions since 2014 — from Cape Town to Johannesburg and everywhere between.</p>
+      <p class="hero-sub">Port Elizabeth's trusted transport and logistics partner. Furniture removals, cargo transport, and nationwide distribution — handled with safety, punctuality, and care.</p>
       <div class="hero-actions">
         <a href="#" class="btn-primary" onclick="showPage('services-page')">Our Services →</a>
-        <a href="#" class="btn-outline" onclick="showPage('gallery-page')">View Gallery</a>
+        <a href="#" class="btn-outline-white" onclick="showPage('gallery-page')">View Gallery</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><div class="trust-icon">✅</div><div class="trust-text">B-BBEE Level 1</div></div>
+        <div class="trust-item"><div class="trust-icon">🔒</div><div class="trust-text">Cargo Secured</div></div>
+        <div class="trust-item"><div class="trust-icon">⚡</div><div class="trust-text">Flexible Dates</div></div>
+        <div class="trust-item"><div class="trust-icon">📍</div><div class="trust-text">10+ Cities</div></div>
       </div>
     </div>
   </section>
 
   <div class="stats-bar">
-    <div class="stat reveal">
-      <div class="stat-number">10+</div>
-      <div class="stat-label">Years in Operation</div>
-    </div>
-    <div class="stat reveal">
-      <div class="stat-number">9+</div>
-      <div class="stat-label">Major Cities Covered</div>
-    </div>
-    <div class="stat reveal">
-      <div class="stat-number">B-BBEE</div>
-      <div class="stat-label">Level 1 Contributor</div>
-    </div>
-    <div class="stat reveal">
-      <div class="stat-number">100%</div>
-      <div class="stat-label">Client Satisfaction Goal</div>
-    </div>
+    <div class="stat reveal"><div class="stat-number">10+</div><div class="stat-label">Years Operating</div></div>
+    <div class="stat reveal"><div class="stat-number">9+</div><div class="stat-label">Cities Covered</div></div>
+    <div class="stat reveal"><div class="stat-number">L1</div><div class="stat-label">B-BBEE Certified</div></div>
+    <div class="stat reveal"><div class="stat-number">24/7</div><div class="stat-label">Client Support</div></div>
   </div>
 
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span class="marquee-item">Johannesburg</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Cape Town</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Port Elizabeth</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Durban</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Pretoria</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Bloemfontein</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">East London</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Polokwane</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Johannesburg</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Cape Town</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Port Elizabeth</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Durban</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Pretoria</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Bloemfontein</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">East London</span><span class="marquee-dot">◆</span>
-      <span class="marquee-item">Polokwane</span><span class="marquee-dot">◆</span>
+      <span class="marquee-item">Johannesburg</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Cape Town</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Port Elizabeth</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Durban</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Pretoria</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Bloemfontein</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">East London</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Polokwane</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Nelspruit</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Johannesburg</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Cape Town</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Port Elizabeth</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Durban</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Pretoria</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Bloemfontein</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">East London</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Polokwane</span><span class="marquee-sep">◆</span>
+      <span class="marquee-item">Nelspruit</span><span class="marquee-sep">◆</span>
     </div>
   </div>
 
-  <section class="section">
+  <section class="home-services">
     <p class="section-label">What We Do</p>
     <h2 class="section-title">CORE SERVICES</h2>
     <div class="services-grid">
       <div class="service-card reveal">
-        <div class="service-icon">🚛</div>
+        <div class="svc-icon-box">🚛</div>
         <h3>Furniture Removals</h3>
-        <p>Residential and commercial moves handled with care. From a single room to an entire estate — packed, loaded, and delivered safely nationwide.</p>
+        <p>Residential and commercial moves handled with precision. Wrapped, loaded, and delivered safely anywhere in South Africa.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">📦</div>
+        <div class="svc-icon-box">📦</div>
         <h3>Cargo Transport</h3>
-        <p>We haul cargo of all types across South Africa's major routes. Safety protocols, proper securing, and on-time delivery every time.</p>
+        <p>All cargo types moved across major routes. Properly secured, fully accountable, and delivered on time — every run.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">🏭</div>
+        <div class="svc-icon-box">🏭</div>
         <h3>Storage Solutions</h3>
-        <p>Short and long-term storage for your goods while in transit or between moves. Secure, clean, and accessible facilities.</p>
+        <p>Short and long-term storage for goods between moves. Secure, organised, and accessible when you need it.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">🗺️</div>
+        <div class="svc-icon-box">🗺️</div>
         <h3>Nationwide Distribution</h3>
-        <p>Daily runs to and from all major cities. We handle B2B distribution requirements with reliability and professionalism.</p>
+        <p>Daily scheduled runs to all major cities. B2B distribution handled consistently and professionally across every route.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">📋</div>
+        <div class="svc-icon-box">📋</div>
         <h3>Logistics Planning</h3>
-        <p>We don't just drive — we solve logistics problems. From route planning to load management, we find the most efficient solution.</p>
+        <p>Route optimisation, load management, and scheduling tailored to your exact business needs. We solve your logistics problems.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">⚡</div>
-        <h3>Last Minute Moves</h3>
-        <p>Plans change. We're flexible. Clients have changed dates last minute and we accommodated without hesitation — your timeline is ours.</p>
+        <div class="svc-icon-box">⚡</div>
+        <h3>Flexible & Urgent Moves</h3>
+        <p>Clients have rescheduled last minute and we've delivered without a fuss. Your timeline becomes our priority.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background: var(--mid); border-top: 1px solid rgba(232,93,4,0.1);">
-    <div class="two-col">
-      <div class="vision-text reveal">
-        <p class="section-label">Who We Are</p>
-        <h2 class="section-title">BUILT ON<br>INTEGRITY</h2>
-        <p>Vinceafrica Logistics was founded in 2014 in Port Elizabeth, Eastern Cape. We are a proudly Black-owned South African company, B-BBEE Level 1 certified, built on values of honesty, punctuality, and genuine care for every client.</p>
-        <p>Our mission is simple: eliminate your logistical problems. From the first phone call to the final sign-off, every person and every decision in our company is committed to your success.</p>
-        <p>Our vision is bold: to be among the top 50 logistics companies in the world by 2050, serving clients across Africa and the globe with integrity at our core.</p>
-        <div class="vision-badge">B-BBEE Level 1 Contributor</div>
+  <section class="about-split">
+    <div class="about-left reveal">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">BUILT ON<br>INTEGRITY</h2>
+      <p>Founded in 2014 in Port Elizabeth, Eastern Cape, Vinceafrica Logistics is a proudly Black-owned South African company. We are B-BBEE Level 1 certified, built on values that never waver: honesty, punctuality, and genuine care for every client.</p>
+      <p>Our mission is to eliminate your logistical problems. From the first call to the final sign-off, every decision we make points to one thing — your complete satisfaction.</p>
+      <p>Our vision is bold: top 50 logistics companies in the world by 2050, serving Africa and the globe with integrity at our core.</p>
+      <div class="about-badge">✅ B-BBEE Level 1 — Proudly Black-Owned</div>
+    </div>
+    <div class="about-right">
+      <div class="value-item reveal">
+        <div class="value-icon">🛡️</div>
+        <div><h4>Safety First</h4><p>Every load is secured properly. We treat your cargo as irreplaceable — because to you, it often is.</p></div>
       </div>
-      <div class="vision-visual reveal">
-        <div class="vision-box">
-          <div class="vision-quote">
-            "Safety, punctuality, and <span>your satisfaction</span> are our main vision — always."
-          </div>
-          <div class="vision-since">— Vinceafrica Logistics, Est. 2014, Port Elizabeth</div>
-        </div>
+      <div class="value-item reveal">
+        <div class="value-icon">⏱️</div>
+        <div><h4>Punctuality Always</h4><p>We arrive when we say we will. In logistics, time is money — and we respect both yours and ours.</p></div>
+      </div>
+      <div class="value-item reveal">
+        <div class="value-icon">🤝</div>
+        <div><h4>Client-Centred</h4><p>Every person, every step, every decision is committed to making you feel valued and achieving success together.</p></div>
+      </div>
+      <div class="value-item reveal">
+        <div class="value-icon">🌍</div>
+        <div><h4>Africa & Beyond</h4><p>Building a company with global ambitions, rooted in African values of community, service, and excellence.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Contact on home page -->
   <section class="contact-section" id="contact-home">
     <p class="section-label">Reach Out</p>
     <h2 class="section-title">GET IN TOUCH</h2>
     <div class="contact-grid">
-      <div class="contact-info reveal">
-        <div class="contact-item">
-          <div class="contact-item-icon">📍</div>
-          <div>
-            <div class="contact-item-label">Location</div>
-            <div class="contact-item-value">Port Elizabeth, Eastern Cape<br>South Africa</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">📞</div>
-          <div>
-            <div class="contact-item-label">Phone</div>
-            <div class="contact-item-value">041 372 5044</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">✉️</div>
-          <div>
-            <div class="contact-item-label">Email</div>
-            <div class="contact-item-value">info@vinceafricalogistics.co.za</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">🌐</div>
-          <div>
-            <div class="contact-item-label">Website</div>
-            <div class="contact-item-value">www.vinceafricalogistics.co.za</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">🚛</div>
-          <div>
-            <div class="contact-item-label">Coverage</div>
-            <div class="contact-item-value">All Major Cities Nationwide — Daily Routes</div>
-          </div>
-        </div>
+      <div class="contact-card reveal">
+        <h3>Contact Details</h3>
+        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-label">Location</div><div class="c-value">Port Elizabeth, Eastern Cape<br>South Africa</div></div></div>
+        <div class="c-item"><div class="c-icon">📞</div><div><div class="c-label">Phone</div><div class="c-value">041 372 5044</div></div></div>
+        <div class="c-item"><div class="c-icon">✉️</div><div><div class="c-label">Email</div><div class="c-value">info@vinceafricalogistics.co.za</div></div></div>
+        <div class="c-item"><div class="c-icon">🌐</div><div><div class="c-label">Website</div><div class="c-value">www.vinceafricalogistics.co.za</div></div></div>
+        <div class="c-item"><div class="c-icon">🚛</div><div><div class="c-label">Coverage</div><div class="c-value">All Major Cities — Daily Routes</div></div></div>
       </div>
       <div class="contact-form reveal">
         <div class="form-row">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Your name">
-          </div>
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="tel" placeholder="Your number">
-          </div>
+          <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+          <div class="fg"><label>Phone Number</label><input type="tel" placeholder="Your number"></div>
         </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="your@email.com">
-        </div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
         <div class="form-row">
-          <div class="form-group">
-            <label>Service Needed</label>
-            <select>
-              <option value="">Select a service...</option>
-              <option>Furniture Removal</option>
-              <option>Cargo Transport</option>
-              <option>Storage</option>
-              <option>Nationwide Distribution</option>
-              <option>Other</option>
-            </select>
+          <div class="fg"><label>Service Required</label>
+            <select><option value="">Select a service...</option><option>Furniture Removal</option><option>Cargo Transport</option><option>Storage</option><option>Nationwide Distribution</option><option>Corporate Logistics</option><option>Urgent Transport</option></select>
           </div>
-          <div class="form-group">
-            <label>Moving From</label>
-            <input type="text" placeholder="City / Town">
-          </div>
+          <div class="fg"><label>Moving From</label><input type="text" placeholder="City / Town"></div>
         </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Tell us about your requirements — size, dates, special items..."></textarea>
-        </div>
-        <button class="btn-primary" style="align-self: flex-start;">Send Enquiry →</button>
+        <div class="fg"><label>Message</label><textarea placeholder="Describe your requirements — size, dates, destination, special items..."></textarea></div>
+        <button class="btn-primary" style="align-self:flex-start">Send Enquiry →</button>
       </div>
     </div>
   </section>
@@ -1209,151 +866,66 @@
       <li><a href="#" onclick="showPage('gallery-page')">Gallery</a></li>
       <li><a href="#" onclick="scrollToContact()">Contact</a></li>
     </ul>
-    <div class="footer-copy">© 2026 Vinceafrica Logistics. All rights reserved. B-BBEE Level 1.</div>
+    <div class="footer-copy">© 2026 Vinceafrica Logistics. B-BBEE Level 1.</div>
   </footer>
 </div>
 
-<!-- ===================== SERVICES PAGE ===================== -->
+<!-- ═══════════════ SERVICES ═══════════════ -->
 <div id="services-page" class="page">
-
   <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-content">
+    <div class="page-hero-inner">
       <div class="page-hero-tag">What We Offer</div>
-      <h2 class="section-title" style="font-size: clamp(3rem,7vw,7rem); margin-bottom:0">OUR<br><span style="color:var(--orange)">SERVICES</span></h2>
-      <p>We specialise in all aspects of transport and logistics. Whether you're moving across town or shipping cargo across the country, we have the capability, the fleet, and the commitment to get it done right.</p>
+      <h2>OUR <em>SERVICES</em></h2>
+      <p>We specialise in every aspect of transport and logistics. Whether you're relocating a home or shipping cargo countrywide — we have the fleet, the team, and the dedication to deliver.</p>
     </div>
   </div>
 
-  <div class="services-full-grid">
-    <div class="service-full-card reveal">
-      <div class="num">01</div>
-      <div style="font-size:2rem">🚛</div>
-      <h3>Furniture & Household Removals</h3>
-      <p>Relocating your home or office? We handle the full move — wrapping, loading, transporting, and offloading. Our team treats your possessions with the same care we'd give our own.</p>
-      <span class="service-tag">Residential</span>
-      <span class="service-tag">Commercial</span>
-      <span class="service-tag">Nationwide</span>
-    </div>
-    <div class="service-full-card reveal">
-      <div class="num">02</div>
-      <div style="font-size:2rem">📦</div>
-      <h3>Cargo & Freight Transport</h3>
-      <p>We move cargo of all sizes across South Africa's major routes. Properly secured, trackable, and always on time. We understand that the safety of your cargo is non-negotiable.</p>
-      <span class="service-tag">Bulk Cargo</span>
-      <span class="service-tag">General Freight</span>
-      <span class="service-tag">Daily Routes</span>
-    </div>
-    <div class="service-full-card reveal">
-      <div class="num">03</div>
-      <div style="font-size:2rem">🏭</div>
-      <h3>Storage & Warehousing</h3>
-      <p>Need to store goods between moves or during a transition? Our storage solutions are secure, organised, and available for both short and long-term requirements.</p>
-      <span class="service-tag">Short-term</span>
-      <span class="service-tag">Long-term</span>
-      <span class="service-tag">Secure</span>
-    </div>
-    <div class="service-full-card reveal">
-      <div class="num">04</div>
-      <div style="font-size:2rem">🗺️</div>
-      <h3>Nationwide Distribution</h3>
-      <p>We run daily routes to and from all major cities. Johannesburg, Cape Town, Durban, Pretoria, Bloemfontein, East London, Polokwane — we connect South Africa's logistics network.</p>
-      <span class="service-tag">B2B</span>
-      <span class="service-tag">Scheduled Runs</span>
-      <span class="service-tag">Multi-stop</span>
-    </div>
-    <div class="service-full-card reveal">
-      <div class="num">05</div>
-      <div style="font-size:2rem">📋</div>
-      <h3>Corporate Logistics Solutions</h3>
-      <p>From SMEs to large organisations, we tailor our logistics services to your business needs. Route optimisation, scheduled collections, regular delivery runs — we adapt to you.</p>
-      <span class="service-tag">Corporate</span>
-      <span class="service-tag">Flexible</span>
-      <span class="service-tag">B-BBEE L1</span>
-    </div>
-    <div class="service-full-card reveal">
-      <div class="num">06</div>
-      <div style="font-size:2rem">⚡</div>
-      <h3>Urgent & Flexible Transport</h3>
-      <p>Last-minute changes? Unexpected requirements? We're built to be flexible. Clients have rescheduled days before a move and we've delivered without missing a beat.</p>
-      <span class="service-tag">Same-week</span>
-      <span class="service-tag">Flexible Dates</span>
-      <span class="service-tag">Responsive</span>
-    </div>
+  <div class="services-full">
+    <div class="sfc reveal"><div class="sfc-num">01</div><div class="sfc-icon">🚛</div><h3>Furniture & Household Removals</h3><p>Full-service residential and commercial moves. Wrapping, loading, transporting, and offloading with care. Your possessions treated as if they were our own.</p><span class="stag">Residential</span><span class="stag">Commercial</span><span class="stag">Nationwide</span></div>
+    <div class="sfc reveal"><div class="sfc-num">02</div><div class="sfc-icon">📦</div><h3>Cargo & Freight Transport</h3><p>All cargo sizes moved across South Africa's major routes. Properly secured, trackable, and always on time. Cargo safety is non-negotiable to us.</p><span class="stag">Bulk Cargo</span><span class="stag">General Freight</span><span class="stag">Daily Routes</span></div>
+    <div class="sfc reveal"><div class="sfc-num">03</div><div class="sfc-icon">🏭</div><h3>Storage & Warehousing</h3><p>Secure short and long-term storage for goods in transit or between relocations. Clean, organised, and available on your schedule.</p><span class="stag">Short-term</span><span class="stag">Long-term</span><span class="stag">Secure</span></div>
+    <div class="sfc reveal"><div class="sfc-num">04</div><div class="sfc-icon">🗺️</div><h3>Nationwide Distribution</h3><p>Daily runs connecting major cities — Johannesburg, Cape Town, Durban, Pretoria, Bloemfontein, East London, Polokwane, and more.</p><span class="stag">B2B</span><span class="stag">Scheduled</span><span class="stag">Multi-stop</span></div>
+    <div class="sfc reveal"><div class="sfc-num">05</div><div class="sfc-icon">📋</div><h3>Corporate Logistics Solutions</h3><p>Route optimisation, scheduled collections, regular delivery runs. Tailored, flexible, and fully B-BBEE Level 1 compliant.</p><span class="stag">Corporate</span><span class="stag">Flexible</span><span class="stag">B-BBEE L1</span></div>
+    <div class="sfc reveal"><div class="sfc-num">06</div><div class="sfc-icon">⚡</div><h3>Urgent & Last-Minute Transport</h3><p>Life doesn't always go to plan. We do. Clients have rescheduled days before a move and we've adapted without a fuss.</p><span class="stag">Same-week</span><span class="stag">Flexible</span><span class="stag">Fast Response</span></div>
   </div>
 
   <div class="process">
     <p class="section-label">How It Works</p>
     <h2 class="section-title">THE PROCESS</h2>
     <div class="process-steps">
-      <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <h4>Get A Quote</h4>
-        <p>Contact us by phone or email. Describe your requirements — size, route, timeline — and we'll give you a competitive, transparent quote.</p>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">02</div>
-        <h4>Confirm & Plan</h4>
-        <p>We confirm the booking, assign your dedicated team, and plan the route and logistics for your specific job. Every detail, sorted.</p>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">03</div>
-        <h4>Collection Day</h4>
-        <p>Our team arrives on time, handles everything professionally, and ensures all items are secured before departure. No surprises.</p>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">04</div>
-        <h4>Safe Delivery</h4>
-        <p>Your goods arrive safely. We offload, arrange as required, and don't leave until you're completely satisfied. Job signed off, promise kept.</p>
-      </div>
+      <div class="process-step reveal"><div class="step-circle">01</div><h4>Get A Quote</h4><p>Call or email with your requirement. We respond fast with a transparent, competitive quote.</p></div>
+      <div class="process-step reveal"><div class="step-circle">02</div><h4>Confirm & Plan</h4><p>Booking confirmed, team assigned, route planned. We handle every detail so you can focus elsewhere.</p></div>
+      <div class="process-step reveal"><div class="step-circle">03</div><h4>Collection Day</h4><p>We arrive on time. Everything packed, secured, and loaded professionally before a single kilometre is driven.</p></div>
+      <div class="process-step reveal"><div class="step-circle">04</div><h4>Safe Delivery</h4><p>Your goods arrive safely. We offload, arrange as needed, and don't leave until you're completely satisfied.</p></div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <h2>READY TO MOVE? LET'S TALK.</h2>
+    <div class="cta-actions">
+      <a href="#" class="btn-white" onclick="showPage('home'); setTimeout(()=>document.getElementById('contact-home').scrollIntoView({behavior:'smooth'}),200)">Get A Free Quote →</a>
+      <a href="tel:0413725044" class="btn-white-outline">📞 041 372 5044</a>
     </div>
   </div>
 
   <section class="contact-section">
-    <p class="section-label">Ready To Move?</p>
+    <p class="section-label">Quick Enquiry</p>
     <h2 class="section-title">REQUEST A QUOTE</h2>
     <div class="contact-grid">
-      <div class="contact-info reveal">
-        <div class="contact-item">
-          <div class="contact-item-icon">📞</div>
-          <div>
-            <div class="contact-item-label">Call Us</div>
-            <div class="contact-item-value">041 372 5044</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">✉️</div>
-          <div>
-            <div class="contact-item-label">Email</div>
-            <div class="contact-item-value">info@vinceafricalogistics.co.za</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">📍</div>
-          <div>
-            <div class="contact-item-label">HQ</div>
-            <div class="contact-item-value">Port Elizabeth, Eastern Cape, South Africa</div>
-          </div>
-        </div>
+      <div class="contact-card reveal">
+        <h3>Get In Touch</h3>
+        <div class="c-item"><div class="c-icon">📞</div><div><div class="c-label">Phone</div><div class="c-value">041 372 5044</div></div></div>
+        <div class="c-item"><div class="c-icon">✉️</div><div><div class="c-label">Email</div><div class="c-value">info@vinceafricalogistics.co.za</div></div></div>
+        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-label">HQ</div><div class="c-value">Port Elizabeth, Eastern Cape, South Africa</div></div></div>
       </div>
       <div class="contact-form reveal">
         <div class="form-row">
-          <div class="form-group"><label>Name</label><input type="text" placeholder="Your full name"></div>
-          <div class="form-group"><label>Contact Number</label><input type="tel" placeholder="Your number"></div>
+          <div class="fg"><label>Name</label><input type="text" placeholder="Full name"></div>
+          <div class="fg"><label>Number</label><input type="tel" placeholder="Contact number"></div>
         </div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-        <div class="form-group"><label>Service Required</label>
-          <select>
-            <option>Select service...</option>
-            <option>Furniture Removal</option>
-            <option>Cargo Transport</option>
-            <option>Storage</option>
-            <option>Distribution</option>
-            <option>Corporate Logistics</option>
-            <option>Urgent Transport</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Details</label><textarea placeholder="Describe your logistics requirement..."></textarea></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="fg"><label>Service</label><select><option>Select service...</option><option>Furniture Removal</option><option>Cargo Transport</option><option>Storage</option><option>Distribution</option><option>Corporate Logistics</option><option>Urgent Transport</option></select></div>
+        <div class="fg"><label>Details</label><textarea placeholder="Describe your logistics requirement..."></textarea></div>
         <button class="btn-primary" style="align-self:flex-start">Send Enquiry →</button>
       </div>
     </div>
@@ -1370,173 +942,89 @@
   </footer>
 </div>
 
-<!-- ===================== GALLERY PAGE ===================== -->
+<!-- ═══════════════ GALLERY ═══════════════ -->
 <div id="gallery-page" class="page">
 
-  <div class="gallery-hero">
+  <div class="gallery-header">
     <div>
-      <div class="page-hero-tag">Our Work, Our Fleet, Our Team</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif; font-size: clamp(3rem,7vw,7rem); line-height:0.9; letter-spacing:2px; color:var(--white)">ON<br>THE<br><span style="color:var(--orange)">ROAD</span></h2>
+      <p class="section-label" style="margin-bottom:.5rem">Our Work</p>
+      <h2>ON THE <em>ROAD</em></h2>
     </div>
-    <div class="gallery-filter">
-      <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
-      <button class="filter-btn" onclick="filterGallery('fleet', this)">Fleet</button>
-      <button class="filter-btn" onclick="filterGallery('moves', this)">Moves</button>
-      <button class="filter-btn" onclick="filterGallery('cargo', this)">Cargo</button>
-      <button class="filter-btn" onclick="filterGallery('team', this)">Team</button>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
+      <button class="filter-btn" onclick="filterGallery('fleet',this)">Fleet</button>
+      <button class="filter-btn" onclick="filterGallery('moves',this)">Moves</button>
+      <button class="filter-btn" onclick="filterGallery('cargo',this)">Cargo</button>
+      <button class="filter-btn" onclick="filterGallery('team',this)">Team</button>
     </div>
   </div>
 
   <div class="gallery-grid" id="galleryGrid">
-
     <div class="gallery-item wide" data-cat="fleet">
-      <div class="gallery-placeholder fleet">
-        <div class="scene-icon">🚛</div>
-        <div class="scene-label">Main Fleet</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">Vinceafrica Main Fleet</div>
-          <div class="overlay-sub">Port Elizabeth Base — Long Haul Ready</div>
-        </div>
-      </div>
+      <div class="g-ph c-fleet1"><div class="g-icon">🚛</div><div class="g-lbl">Main Fleet</div></div>
+      <div class="g-overlay"><div><div class="o-title">Vinceafrica Main Fleet</div><div class="o-sub">Port Elizabeth Base — Long Haul Ready</div></div></div>
     </div>
-
     <div class="gallery-item" data-cat="moves">
-      <div class="gallery-placeholder truck-1">
-        <div class="scene-icon">📦</div>
-        <div class="scene-label">Loading Day</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">Furniture Removal</div>
-          <div class="overlay-sub">Residential Move — Johannesburg</div>
-        </div>
-      </div>
+      <div class="g-ph c-move1"><div class="g-icon">📦</div><div class="g-lbl">Loading Day</div></div>
+      <div class="g-overlay"><div><div class="o-title">Furniture Removal</div><div class="o-sub">Residential Move — Johannesburg</div></div></div>
     </div>
-
     <div class="gallery-item tall" data-cat="team">
-      <div class="gallery-placeholder team">
-        <div class="scene-icon">👷</div>
-        <div class="scene-label">Our Team</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">The Vinceafrica Team</div>
-          <div class="overlay-sub">Professional, Punctual, Passionate</div>
-        </div>
-      </div>
+      <div class="g-ph c-team1"><div class="g-icon">👷</div><div class="g-lbl">Our Team</div></div>
+      <div class="g-overlay"><div><div class="o-title">The Vinceafrica Team</div><div class="o-sub">Professional, Punctual, Passionate</div></div></div>
     </div>
-
     <div class="gallery-item" data-cat="cargo">
-      <div class="gallery-placeholder cargo">
-        <div class="scene-icon">🏭</div>
-        <div class="scene-label">Cargo Secured</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">Cargo Loading</div>
-          <div class="overlay-sub">Commercial Freight — Cape Town Route</div>
-        </div>
-      </div>
+      <div class="g-ph c-cargo1"><div class="g-icon">🏭</div><div class="g-lbl">Cargo Load</div></div>
+      <div class="g-overlay"><div><div class="o-title">Cargo Loading</div><div class="o-sub">Commercial Freight — Cape Town Route</div></div></div>
     </div>
-
     <div class="gallery-item" data-cat="fleet">
-      <div class="gallery-placeholder truck-2">
-        <div class="scene-icon">🚚</div>
-        <div class="scene-label">On Route</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">En Route to Durban</div>
-          <div class="overlay-sub">Nationwide Distribution Run</div>
-        </div>
-      </div>
+      <div class="g-ph c-fleet2"><div class="g-icon">🚚</div><div class="g-lbl">On Route</div></div>
+      <div class="g-overlay"><div><div class="o-title">En Route to Durban</div><div class="o-sub">Nationwide Distribution Run</div></div></div>
     </div>
-
     <div class="gallery-item" data-cat="moves">
-      <div class="gallery-placeholder truck-3">
-        <div class="scene-icon">🏠</div>
-        <div class="scene-label">Home Removal</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">Residential Relocation</div>
-          <div class="overlay-sub">Eastern Cape to Gauteng</div>
-        </div>
-      </div>
+      <div class="g-ph c-move2"><div class="g-icon">🏠</div><div class="g-lbl">Home Removal</div></div>
+      <div class="g-overlay"><div><div class="o-title">Residential Relocation</div><div class="o-sub">Eastern Cape to Gauteng</div></div></div>
     </div>
-
     <div class="gallery-item wide" data-cat="cargo">
-      <div class="gallery-placeholder warehouse">
-        <div class="scene-icon">📋</div>
-        <div class="scene-label">Storage Facility</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">Storage & Warehousing</div>
-          <div class="overlay-sub">Secure Short & Long-term Storage Solutions</div>
-        </div>
-      </div>
+      <div class="g-ph c-cargo2"><div class="g-icon">📋</div><div class="g-lbl">Storage Facility</div></div>
+      <div class="g-overlay"><div><div class="o-title">Storage & Warehousing</div><div class="o-sub">Secure Short & Long-term Solutions</div></div></div>
     </div>
-
     <div class="gallery-item" data-cat="fleet">
-      <div class="gallery-placeholder route">
-        <div class="scene-icon">🗺️</div>
-        <div class="scene-label">National Routes</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">SA Route Network</div>
-          <div class="overlay-sub">Daily Scheduled Runs Countrywide</div>
-        </div>
-      </div>
+      <div class="g-ph c-route"><div class="g-icon">🗺️</div><div class="g-lbl">Route Network</div></div>
+      <div class="g-overlay"><div><div class="o-title">National Route Network</div><div class="o-sub">Daily Scheduled Runs Countrywide</div></div></div>
     </div>
-
     <div class="gallery-item" data-cat="team">
-      <div class="gallery-placeholder city">
-        <div class="scene-icon">🤝</div>
-        <div class="scene-label">Client Service</div>
-      </div>
-      <div class="gallery-overlay">
-        <div>
-          <div class="overlay-text">Client Handover</div>
-          <div class="overlay-sub">Signed Off with Satisfaction</div>
-        </div>
-      </div>
+      <div class="g-ph c-team2"><div class="g-icon">🤝</div><div class="g-lbl">Client Handover</div></div>
+      <div class="g-overlay"><div><div class="o-title">Client Sign-Off</div><div class="o-sub">Satisfaction Guaranteed Every Time</div></div></div>
     </div>
-
   </div>
 
-  <!-- Reviews -->
   <div class="reviews">
-    <p class="section-label">Client Reviews</p>
+    <p class="section-label">Client Testimonials</p>
     <h2 class="section-title">WHAT CLIENTS SAY</h2>
     <div class="reviews-grid">
       <div class="review-card reveal">
         <div class="stars">★★★★★</div>
-        <div class="review-text">Thank you Richard and the entire Vinceafrica team for making it on time. Your service is out of this world — I will recommend you to my family and friends.</div>
-        <div class="reviewer-name">— Verified Client, Wise Move</div>
+        <p class="review-text">Thank you Richard and the entire Vinceafrica team for making it on time. Your service is out of this world — I will recommend you to my family and friends.</p>
+        <div class="reviewer">— Verified Client, Wise Move</div>
       </div>
       <div class="review-card reveal">
         <div class="stars">★★★★★</div>
-        <div class="review-text">From quote to offloading, Richard and Prosper were very professional. I changed my date last minute and they didn't give me a hard time at all. I recommend Vinceafrica any day.</div>
-        <div class="reviewer-name">— Primrose, Verified Client</div>
+        <p class="review-text">From quote to offloading, Richard and Prosper were extremely professional. I changed my move date last minute and they didn't give me a hard time at all. I recommend Vinceafrica any day.</p>
+        <div class="reviewer">— Primrose, Verified Client</div>
       </div>
       <div class="review-card reveal">
         <div class="stars">★★★★★</div>
-        <div class="review-text">A small but mighty team. We understand that the safety of your cargo is their top priority. Professional handling, punctual delivery, and genuine customer care throughout.</div>
-        <div class="reviewer-name">— Corporate Client, Johannesburg</div>
+        <p class="review-text">The safety of our cargo was clearly their top priority throughout. Punctual pickup, secure load, and a clean delivery. A professional team we will continue to use.</p>
+        <div class="reviewer">— Corporate Client, Johannesburg</div>
       </div>
     </div>
   </div>
 
-  <!-- CTA strip -->
-  <div style="background: var(--orange); padding: 4rem 3rem; text-align: center;">
-    <div style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5vw,4rem); letter-spacing:2px; color:var(--darker); margin-bottom:1.5rem">READY TO MOVE? LET'S TALK.</div>
-    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap">
-      <a href="#" onclick="showPage('home')" style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:2px; text-transform:uppercase; background:var(--darker); color:var(--white); padding:1rem 2.5rem; text-decoration:none; cursor:none; transition:opacity 0.2s" onmouseenter="this.style.opacity=0.8" onmouseleave="this.style.opacity=1">Get A Quote →</a>
-      <a href="tel:0413725044" style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:2px; text-transform:uppercase; background:transparent; color:var(--darker); border:2px solid var(--darker); padding:1rem 2.5rem; text-decoration:none; cursor:none; transition:opacity 0.2s" onmouseenter="this.style.opacity=0.7" onmouseleave="this.style.opacity=1">📞 041 372 5044</a>
+  <div class="cta-strip">
+    <h2>READY TO MOVE? LET'S TALK.</h2>
+    <div class="cta-actions">
+      <a href="#" class="btn-white" onclick="showPage('home'); setTimeout(()=>document.getElementById('contact-home').scrollIntoView({behavior:'smooth'}),200)">Get A Free Quote →</a>
+      <a href="tel:0413725044" class="btn-white-outline">📞 041 372 5044</a>
     </div>
   </div>
 
@@ -1552,64 +1040,43 @@
 </div>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
+  const cur = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top = e.clientY + 'px';
-    }, 60);
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+    setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 55);
   });
 
-  // Page switcher
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(checkReveal, 200);
+    setTimeout(checkReveal, 150);
   }
 
   function scrollToContact() {
     showPage('home');
-    setTimeout(() => {
-      document.getElementById('contact-home').scrollIntoView({ behavior: 'smooth' });
-    }, 200);
+    setTimeout(() => document.getElementById('contact-home').scrollIntoView({ behavior: 'smooth' }), 250);
   }
 
-  // Scroll reveal
   function checkReveal() {
     document.querySelectorAll('.reveal').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 80) {
-        el.classList.add('visible');
-      }
+      if (el.getBoundingClientRect().top < window.innerHeight - 70) el.classList.add('visible');
     });
   }
   window.addEventListener('scroll', checkReveal);
   checkReveal();
 
-  // Gallery filter
   function filterGallery(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.querySelectorAll('.gallery-item').forEach(item => {
-      if (cat === 'all' || item.dataset.cat === cat) {
-        item.style.display = '';
-        item.style.opacity = '1';
-      } else {
-        item.style.opacity = '0';
-        item.style.display = 'none';
-      }
+      item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
     });
   }
 
-  // Nav link active state
-  document.querySelectorAll('.nav-links a, .footer-links a').forEach(a => {
-    a.addEventListener('click', e => e.preventDefault());
-  });
+  document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 </script>
 </body>
 </html>
